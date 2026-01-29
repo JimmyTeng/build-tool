@@ -1,0 +1,2 @@
+# 备份目录（添加 vcpkg submodule 时保留的旧 clone，确认无误后可删除以节省空间）
+vcpkg_bak/

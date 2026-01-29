@@ -1,0 +1,11 @@
+{
+  "name": "fbow",
+  "version-string": "0.0.0",
+  "description": "Compatibility/meta port that installs stella-cv-fbow (CMake package name: fbow).",
+  "homepage": "https://github.com/stella-cv/FBoW",
+  "license": "MIT",
+  "dependencies": [
+    "stella-cv-fbow"
+  ]
+}
+

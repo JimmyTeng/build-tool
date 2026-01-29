@@ -1,0 +1,7 @@
+fbow is provided via the dependency 'stella-cv-fbow'.
+
+In CMake:
+
+  find_package(fbow CONFIG REQUIRED)
+  target_link_libraries(<your-target> PRIVATE fbow::fbow)
+
