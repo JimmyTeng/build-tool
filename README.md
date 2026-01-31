@@ -10,6 +10,8 @@ robot-build-system/
 ├── toolchains/                 # 级联工具链文件 (System Toolchains)
 ├── triplets/                   # 自定义 vcpkg 三元组
 ├── overlay-ports/              # 自定义/魔改的第三方库
+├── cmake/                      # CMake 预设模板（供项目 include）
+│   └── CMakePresets.json       # x64/arm64 Debug&Release 等 preset 定义
 ├── scripts/                    # 工具脚本
 └── README.md
 ```

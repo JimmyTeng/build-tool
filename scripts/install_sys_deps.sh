@@ -25,6 +25,7 @@ ${SUDO} apt-get install -y --no-install-recommends \
   cmake \
   ninja-build \
   pkg-config \
+  bison \
   git \
   curl \
   ca-certificates \
@@ -32,10 +33,25 @@ ${SUDO} apt-get install -y --no-install-recommends \
   unzip \
   tar \
   autoconf \
+  autoconf-archive\
   automake \
   libtool \
+  nasm \
   python3 \
+  python3-venv \
+  libx11-dev \
+  libxft-dev \
+  libxext-dev \
+  libxi-dev \
+  libxtst-dev \
+  libxkbcommon-dev \
+  libwayland-dev \
+  libltdl-dev \
+  libgl1-mesa-dev \
+  libglu1-mesa-dev \
   python3-pip \
+  gfortran \
+  gfortran-aarch64-linux-gnu \
   gcc-aarch64-linux-gnu \
   g++-aarch64-linux-gnu
 
