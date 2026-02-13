@@ -53,7 +53,6 @@
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build-tool/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "VCPKG_INSTALLED_DIR": "$env{HOME}/.cache/vcpkg-rbs/installed",
         "VCPKG_OVERLAY_PORTS": "${sourceDir}/build-tool/overlay-ports",
         "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/build-tool/triplets"
       }
