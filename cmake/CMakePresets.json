@@ -102,8 +102,27 @@
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/aarch64/Release",
         "CMAKE_BUILD_TYPE": "Release",
         "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${sourceDir}/build-tool/toolchains/aarch64-linux-gnu.cmake",
-        "VCPKG_MANIFEST_FEATURES": ""
+        "VCPKG_MANIFEST_FEATURES": "",
+        "ENABLE_ROS": "OFF"
+      }
+    },
+    {
+      "name": "arm64-release-vcpkg-docker",
+      "inherits": "arm64-release-vcpkg",
+      "displayName": "Robot Release ARM64 (Docker, vcpkg in /tmp)",
+      "environment": { "VCPKG_ROOT": "/tmp/vcpkg-docker" },
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "/tmp/vcpkg-docker/scripts/buildsystems/vcpkg.cmake"
       }
     }
+  ],
+  "buildPresets": [
+    { "name": "x64-debug", "configurePreset": "x64-debug" },
+    { "name": "x64-release", "configurePreset": "x64-release" },
+    { "name": "x64-debug-vcpkg", "configurePreset": "x64-debug-vcpkg" },
+    { "name": "x64-release-vcpkg", "configurePreset": "x64-release-vcpkg" },
+    { "name": "arm64-debug-vcpkg", "configurePreset": "arm64-debug-vcpkg" },
+    { "name": "arm64-release-vcpkg", "configurePreset": "arm64-release-vcpkg" },
+    { "name": "arm64-release-vcpkg-docker", "configurePreset": "arm64-release-vcpkg-docker" }
   ]
 }
