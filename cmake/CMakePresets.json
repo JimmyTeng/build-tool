@@ -48,13 +48,15 @@
         "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/build-tool/triplets",
         "RBS_VCPKG_CACHE_DIR": "$env{HOME}/.cache/vcpkg-rbs",
         "VCPKG_DOWNLOADS": "$env{HOME}/.cache/vcpkg-rbs/downloads",
-        "VCPKG_BINARY_SOURCES": "clear;files,$env{HOME}/.cache/vcpkg-rbs,readwrite"
+        "VCPKG_BINARY_SOURCES": "clear;files,$env{HOME}/.cache/vcpkg-rbs,readwrite",
+        "PATH": "/usr/bin:/bin"
       },
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build-tool/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "VCPKG_OVERLAY_PORTS": "${sourceDir}/build-tool/overlay-ports",
-        "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/build-tool/triplets"
+        "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/build-tool/triplets",
+        "ENABLE_ROS": "OFF"
       }
     },
     {
@@ -110,19 +112,45 @@
       "name": "arm64-release-vcpkg-docker",
       "inherits": "arm64-release-vcpkg",
       "displayName": "Robot Release ARM64 (Docker, vcpkg in /tmp)",
-      "environment": { "VCPKG_ROOT": "/tmp/vcpkg-docker" },
+      "environment": {
+        "VCPKG_ROOT": "/tmp/vcpkg-docker",
+        "RBS_VCPKG_CACHE_DIR": "/root/.cache/vcpkg-rbs",
+        "VCPKG_DOWNLOADS": "/root/.cache/vcpkg-rbs/downloads",
+        "VCPKG_BINARY_SOURCES": "clear;files,/root/.cache/vcpkg-rbs,readwrite"
+      },
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "/tmp/vcpkg-docker/scripts/buildsystems/vcpkg.cmake"
       }
     }
   ],
   "buildPresets": [
-    { "name": "x64-debug", "configurePreset": "x64-debug" },
-    { "name": "x64-release", "configurePreset": "x64-release" },
-    { "name": "x64-debug-vcpkg", "configurePreset": "x64-debug-vcpkg" },
-    { "name": "x64-release-vcpkg", "configurePreset": "x64-release-vcpkg" },
-    { "name": "arm64-debug-vcpkg", "configurePreset": "arm64-debug-vcpkg" },
-    { "name": "arm64-release-vcpkg", "configurePreset": "arm64-release-vcpkg" },
-    { "name": "arm64-release-vcpkg-docker", "configurePreset": "arm64-release-vcpkg-docker" }
+    {
+      "name": "x64-debug",
+      "configurePreset": "x64-debug"
+    },
+    {
+      "name": "x64-release",
+      "configurePreset": "x64-release"
+    },
+    {
+      "name": "x64-debug-vcpkg",
+      "configurePreset": "x64-debug-vcpkg"
+    },
+    {
+      "name": "x64-release-vcpkg",
+      "configurePreset": "x64-release-vcpkg"
+    },
+    {
+      "name": "arm64-debug-vcpkg",
+      "configurePreset": "arm64-debug-vcpkg"
+    },
+    {
+      "name": "arm64-release-vcpkg",
+      "configurePreset": "arm64-release-vcpkg"
+    },
+    {
+      "name": "arm64-release-vcpkg-docker",
+      "configurePreset": "arm64-release-vcpkg-docker"
+    }
   ]
 }
