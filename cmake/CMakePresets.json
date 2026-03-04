@@ -55,8 +55,7 @@
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build-tool/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "VCPKG_OVERLAY_PORTS": "${sourceDir}/build-tool/overlay-ports",
-        "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/build-tool/triplets",
-        "ENABLE_ROS": "OFF"
+        "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/build-tool/triplets"
       }
     },
     {
@@ -67,7 +66,9 @@
       "cacheVariables": {
         "VCPKG_TARGET_TRIPLET": "x64-linux-custom",
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/x86_64/Debug",
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXE_LINKER_FLAGS": "-L${sourceDir}/build/x86_64/Debug/x64-debug-vcpkg/vcpkg_installed/x64-linux-custom/lib -Wl,-rpath,${sourceDir}/build/x86_64/Debug/x64-debug-vcpkg/vcpkg_installed/x64-linux-custom/lib",
+        "CMAKE_SHARED_LINKER_FLAGS": "-L${sourceDir}/build/x86_64/Debug/x64-debug-vcpkg/vcpkg_installed/x64-linux-custom/lib -Wl,-rpath,${sourceDir}/build/x86_64/Debug/x64-debug-vcpkg/vcpkg_installed/x64-linux-custom/lib"
       }
     },
     {
@@ -112,6 +113,7 @@
       "name": "arm64-release-vcpkg-docker",
       "inherits": "arm64-release-vcpkg",
       "displayName": "Robot Release ARM64 (Docker, vcpkg in /tmp)",
+      "binaryDir": "${sourceDir}/build/aarch64/Release-docker/${presetName}",
       "environment": {
         "VCPKG_ROOT": "/tmp/vcpkg-docker",
         "RBS_VCPKG_CACHE_DIR": "/root/.cache/vcpkg-rbs",
@@ -119,7 +121,8 @@
         "VCPKG_BINARY_SOURCES": "clear;files,/root/.cache/vcpkg-rbs,readwrite"
       },
       "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "/tmp/vcpkg-docker/scripts/buildsystems/vcpkg.cmake"
+        "CMAKE_TOOLCHAIN_FILE": "/tmp/vcpkg-docker/scripts/buildsystems/vcpkg.cmake",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/aarch64/Release-docker"
       }
     }
   ],
@@ -134,7 +137,10 @@
     },
     {
       "name": "x64-debug-vcpkg",
-      "configurePreset": "x64-debug-vcpkg"
+      "configurePreset": "x64-debug-vcpkg",
+      "environment": {
+        "LIBRARY_PATH": "${sourceDir}/build/x86_64/Debug/x64-debug-vcpkg/vcpkg_installed/x64-linux-custom/lib"
+      }
     },
     {
       "name": "x64-release-vcpkg",
