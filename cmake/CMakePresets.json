@@ -105,24 +105,43 @@
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/aarch64/Release",
         "CMAKE_BUILD_TYPE": "Release",
         "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${sourceDir}/build-tool/toolchains/aarch64-linux-gnu.cmake",
-        "VCPKG_MANIFEST_FEATURES": "",
-        "ENABLE_ROS": "OFF"
+        "VCPKG_MANIFEST_FEATURES": ""
       }
     },
     {
       "name": "arm64-release-vcpkg-docker",
       "inherits": "arm64-release-vcpkg",
-      "displayName": "Robot Release ARM64 (Docker, vcpkg in /tmp)",
+      "displayName": "Robot Release ARM64 (Docker, vcpkg under /work)",
       "binaryDir": "${sourceDir}/build/aarch64/Release-docker/${presetName}",
       "environment": {
-        "VCPKG_ROOT": "/tmp/vcpkg-docker",
-        "RBS_VCPKG_CACHE_DIR": "/root/.cache/vcpkg-rbs",
-        "VCPKG_DOWNLOADS": "/root/.cache/vcpkg-rbs/downloads",
-        "VCPKG_BINARY_SOURCES": "clear;files,/root/.cache/vcpkg-rbs,readwrite"
+        "VCPKG_ROOT": "/work/.vcpkg-docker-tool",
+        "RBS_VCPKG_CACHE_DIR": "/work/.vcpkg-docker-cache-arm64",
+        "VCPKG_DOWNLOADS": "/work/.vcpkg-docker-cache-arm64/downloads",
+        "VCPKG_BINARY_SOURCES": "clear;files,/work/.vcpkg-docker-cache-arm64,readwrite"
       },
       "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "/tmp/vcpkg-docker/scripts/buildsystems/vcpkg.cmake",
+        "CMAKE_TOOLCHAIN_FILE": "/work/.vcpkg-docker-tool/scripts/buildsystems/vcpkg.cmake",
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/aarch64/Release-docker"
+      }
+    },
+    {
+      "name": "x64-release-vcpkg-docker",
+      "inherits": "x64-release-vcpkg",
+      "displayName": "PC Release x64 with ROS (Docker, vcpkg under /work)",
+      "binaryDir": "${sourceDir}/build/x86_64/Release-docker/${presetName}",
+      "environment": {
+        "VCPKG_ROOT": "/work/.vcpkg-docker-tool",
+        "RBS_VCPKG_CACHE_DIR": "/work/.vcpkg-docker-cache-x64",
+        "VCPKG_DOWNLOADS": "/work/.vcpkg-docker-cache-x64/downloads",
+        "VCPKG_BINARY_SOURCES": "clear;files,/work/.vcpkg-docker-cache-x64,readwrite",
+        "PATH": "/usr/local/bin:/usr/bin:/bin",
+        "CC": "/usr/bin/gcc-8",
+        "CXX": "/usr/bin/g++-8"
+      },
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "/work/.vcpkg-docker-tool/scripts/buildsystems/vcpkg.cmake",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/x86_64/Release-docker",
+        "VCPKG_TARGET_TRIPLET": "x64-linux-custom-release"
       }
     }
   ],
@@ -157,6 +176,10 @@
     {
       "name": "arm64-release-vcpkg-docker",
       "configurePreset": "arm64-release-vcpkg-docker"
+    },
+    {
+      "name": "x64-release-vcpkg-docker",
+      "configurePreset": "x64-release-vcpkg-docker"
     }
   ]
 }
