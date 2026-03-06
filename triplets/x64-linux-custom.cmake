@@ -2,8 +2,8 @@ set(VCPKG_TARGET_ARCHITECTURE x64)
 set(VCPKG_CMAKE_SYSTEM_NAME Linux)
 
 # vcpkg triplet 必填项（缺失会导致 detect_compiler 失败）
-# - Linux 通常使用动态链接，和官方 x64-linux 默认行为一致
-set(VCPKG_LIBRARY_LINKAGE dynamic)
+# - 使用静态库，使最终 VIO 只产出一个 .so（依赖全部静态链接进去）
+set(VCPKG_LIBRARY_LINKAGE static)
 set(VCPKG_CRT_LINKAGE dynamic)
 
 get_filename_component(_RBS_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
@@ -11,5 +11,11 @@ get_filename_component(_RBS_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
 # 从而触发额外的配置分支/报错（例如 dbus/openblas）。
 # 如需固定编译器，请在环境中显式设置 CC/CXX。
 
-set(VCPKG_CMAKE_CONFIGURE_OPTIONS -DCMAKE_POSITION_INDEPENDENT_CODE=ON)
+# PIC + 按段编译（通过 CONFIGURE_OPTIONS 传入，确保所有端口都生效；VCPKG_C_FLAGS 仅在不 chainload 时有效）
+set(VCPKG_CMAKE_CONFIGURE_OPTIONS
+  -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+  "-DCMAKE_C_FLAGS=-ffunction-sections -fdata-sections"
+  "-DCMAKE_CXX_FLAGS=-ffunction-sections -fdata-sections")
+set(VCPKG_C_FLAGS "${VCPKG_C_FLAGS} -ffunction-sections -fdata-sections")
+set(VCPKG_CXX_FLAGS "${VCPKG_CXX_FLAGS} -ffunction-sections -fdata-sections")
 

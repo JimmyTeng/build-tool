@@ -2,14 +2,19 @@ set(VCPKG_TARGET_ARCHITECTURE arm64)
 set(VCPKG_CMAKE_SYSTEM_NAME Linux)
 
 # vcpkg triplet 必填项（缺失会导致 detect_compiler 失败）
-# - Linux 通常使用动态链接，和官方 arm64-linux 默认行为一致
-set(VCPKG_LIBRARY_LINKAGE dynamic)
+# - 使用静态库，使最终 VIO 只产出一个 .so（依赖全部静态链接进去）
+set(VCPKG_LIBRARY_LINKAGE static)
 set(VCPKG_CRT_LINKAGE dynamic)
 
 # 将本仓库的系统工具链级联到 vcpkg 构建流程中
 get_filename_component(_RBS_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
 set(VCPKG_CHAINLOAD_TOOLCHAIN_FILE "${_RBS_ROOT}/toolchains/aarch64-linux-gnu.cmake")
 
-# 通用建议：生成 PIC，便于与共享库/插件组合
-set(VCPKG_CMAKE_CONFIGURE_OPTIONS -DCMAKE_POSITION_INDEPENDENT_CODE=ON)
+# PIC + 按段编译（arm64 使用 chainload 时 VCPKG_C_FLAGS 不生效，必须通过 CONFIGURE_OPTIONS 传入；toolchain 里也有一份）
+set(VCPKG_CMAKE_CONFIGURE_OPTIONS
+  -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+  "-DCMAKE_C_FLAGS=-ffunction-sections -fdata-sections"
+  "-DCMAKE_CXX_FLAGS=-ffunction-sections -fdata-sections")
+set(VCPKG_C_FLAGS "${VCPKG_C_FLAGS} -ffunction-sections -fdata-sections")
+set(VCPKG_CXX_FLAGS "${VCPKG_CXX_FLAGS} -ffunction-sections -fdata-sections")
 
