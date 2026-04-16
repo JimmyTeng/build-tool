@@ -133,4 +133,4 @@ cmake -S . -B build-x64  -DVCPKG_TARGET_TRIPLET=x64-linux-custom  -DCMAKE_TOOLCH
 cmake -S . -B build-arm64 -DVCPKG_TARGET_TRIPLET=arm64-linux-custom -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
 ```
 
-
+（x86_64 本机 vcpkg 使用 triplet `x64-linux-custom`；OpenVINS 可用 preset：`x64-debug-vcpkg` / `x64-release-vcpkg` / `x64-release-vcpkg-docker`。勿用 `x86-linux-*` 表示 64 位——在 vcpkg 中 `x86` 指 32 位。）

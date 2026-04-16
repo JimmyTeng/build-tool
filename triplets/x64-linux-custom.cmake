@@ -1,3 +1,4 @@
+# x86_64 / amd64 主机目标（vcpkg 中架构名为 x64；勿与 32 位 triplet「x86-*」混淆）
 set(VCPKG_TARGET_ARCHITECTURE x64)
 set(VCPKG_CMAKE_SYSTEM_NAME Linux)
 

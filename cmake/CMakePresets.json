@@ -55,7 +55,9 @@
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build-tool/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "VCPKG_OVERLAY_PORTS": "${sourceDir}/build-tool/overlay-ports",
-        "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/build-tool/triplets"
+        "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/build-tool/triplets",
+        "OPENVINS_USE_VCPKG": "ON",
+        "ENABLE_ROS": "OFF"
       }
     },
     {
@@ -85,6 +87,30 @@
       }
     },
     {
+      "name": "x64-debug-vcpkg",
+      "inherits": "vcpkg",
+      "displayName": "PC Debug (x86_64, vcpkg, 本机)",
+      "binaryDir": "${sourceDir}/build/x86_64/Debug-vcpkg/${presetName}",
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-linux-custom",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/x86_64/Debug-vcpkg",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "VCPKG_MANIFEST_FEATURES": ""
+      }
+    },
+    {
+      "name": "x64-release-vcpkg",
+      "inherits": "vcpkg",
+      "displayName": "PC Release (x86_64, vcpkg, 本机)",
+      "binaryDir": "${sourceDir}/build/x86_64/Release-vcpkg/${presetName}",
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-linux-custom",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/x86_64/Release-vcpkg",
+        "CMAKE_BUILD_TYPE": "Release",
+        "VCPKG_MANIFEST_FEATURES": ""
+      }
+    },
+    {
       "name": "arm64-release-vcpkg-docker",
       "inherits": "arm64-release-vcpkg",
       "displayName": "Robot Release ARM64 (Docker, vcpkg under /work)",
@@ -103,7 +129,7 @@
     {
       "name": "x64-release-vcpkg-docker",
       "inherits": "vcpkg",
-      "displayName": "PC Release x64 with ROS (Docker, vcpkg under /work)",
+      "displayName": "PC Release x64 (Docker, vcpkg under /work, no ROS)",
       "binaryDir": "${sourceDir}/build/x86_64/Release-docker/${presetName}",
       "environment": {
         "VCPKG_ROOT": "/work/.vcpkg-docker-tool",
@@ -118,8 +144,7 @@
         "CMAKE_TOOLCHAIN_FILE": "/work/.vcpkg-docker-tool/scripts/buildsystems/vcpkg.cmake",
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/x86_64/Release-docker",
         "VCPKG_TARGET_TRIPLET": "x64-linux-custom-release",
-        "CMAKE_BUILD_TYPE": "Release",
-        "ENABLE_ROS": "OFF"
+        "CMAKE_BUILD_TYPE": "Release"
       }
     }
   ],
@@ -139,6 +164,14 @@
     {
       "name": "arm64-release-vcpkg",
       "configurePreset": "arm64-release-vcpkg"
+    },
+    {
+      "name": "x64-debug-vcpkg",
+      "configurePreset": "x64-debug-vcpkg"
+    },
+    {
+      "name": "x64-release-vcpkg",
+      "configurePreset": "x64-release-vcpkg"
     },
     {
       "name": "arm64-release-vcpkg-docker",
